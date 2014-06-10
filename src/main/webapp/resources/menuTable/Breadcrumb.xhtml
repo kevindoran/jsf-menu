@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <cc:interface>
+        <cc:attribute name="model" type="nz.co.kevindoran.breadcrumb.Breadcrumb" />
+        <cc:attribute name="updateID" />
+        <cc:attribute name="styleClass" />
+    </cc:interface>
+
+    <cc:implementation>
+        <h:outputStylesheet library="css" name="breadcrumb.css" />
+        <h:panelGroup styleClass="#{cc.attrs.styleClass}">
+        <ul class="crumbs">
+            <ui:repeat id="repeat1" value="#{cc.attrs.model.items}" var="item" varStatus="status">
+                <li class="#{(status.first) ? 'first' : ''}"> 
+                    <h:commandLink styleClass="z-index:#{100 - status.index}" actionListener="#{cc.attrs.model.setSelected(item)}" value="#{item.toString()}">
+                        <f:ajax render="#{cc.attrs.updateID}"/>
+                    </h:commandLink>
+                </li>
+            </ui:repeat>
+        </ul>
+        </h:panelGroup>
+    </cc:implementation>
+</html>

@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <cc:interface>
+        <cc:attribute name="model" type="nz.co.kevindoran.jsfmenutable.MenuTable"/>
+        <cc:attribute name="updateID" />
+    </cc:interface>
+
+    <cc:implementation>
+        <table>
+            <ui:repeat id="repeat1" value="#{cc.attrs.model.rows}" var="menuRow">
+                <tr>
+                <ui:repeat id="repeat2" value="#{menuRow.contents}" var="entry">
+                    <td>
+                        <h:commandLink actionListener="#{cc.attrs.model.setSelected(entry)}" value="#{entry.toString()}">
+                            <f:ajax render="#{cc.attrs.updateID}"/>
+                        </h:commandLink>
+                    </td>
+                </ui:repeat>
+                </tr>
+            </ui:repeat>
+        </table>
+    </cc:implementation>
+</html>
